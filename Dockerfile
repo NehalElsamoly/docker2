@@ -1,14 +1,23 @@
-FROM python:2.7-alpine
+FROM dockerfile/ubuntu
 
-RUN mkdir /app
-WORKDIR /app
+# Install Nginx.
+RUN \
+  add-apt-repository -y ppa:nginx/stable && \
+  apt-get update && \
+  apt-get install -y nginx && \
+  rm -rf /var/lib/apt/lists/* && \
+  echo "\ndaemon off;" >> /etc/nginx/nginx.conf && \
+  chown -R www-data:www-data /var/lib/nginx
 
-COPY requirements.txt requirements.txt
-RUN pip install -r requirements.txt
+# Define mountable directories.
+VOLUME ["/etc/nginx/sites-enabled", "/etc/nginx/certs", "/etc/nginx/conf.d", "/var/log/nginx", "/var/www/html"]
 
-COPY . .
+# Define working directory.
+WORKDIR /etc/nginx
 
-LABEL maintainer="WebMagic Informatica <info@webmagicinformatica.com>" \
-      version="1.0"
+# Define default command.
+CMD ["nginx"]
 
-CMD flask run --host=0.0.0.0 --port=5000
+# Expose ports.
+EXPOSE 80
+EXPOSE 443
