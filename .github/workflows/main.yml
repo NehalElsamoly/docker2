@@ -12,7 +12,7 @@ characteristic:
   height:170
   skincolor:''
 
-/////////////////////////////////////////////////////
+
 on:
   push:
    /*what is the branch*/
@@ -32,9 +32,9 @@ jobs:
       - name: "testing printing"
         run: echo ahmed
 
-/////////////////////////////////////////////////////
+
 after creat yml file in github use git pull command 
-/////////////////////////////////////////////////////
+
 jobs:
   build:
     runs-on: ubuntu-latest 
@@ -50,7 +50,6 @@ jobs:
 $ why the .github folder not exists?
   as in linux any folder start with . is disappeard
 	ls -a
-////////////////////////////////////////////////////
 to build image !!!!
 	1- docker login 
 	   docker login --username "" --password ""
@@ -65,7 +64,6 @@ jobs:
 
 $ it is not right as all people will see your username and password
         
-///////////////////////////////////////////////////////
 in github -> settings -> secrets -> actions
 then press new repositery secret
 put username
@@ -81,7 +79,6 @@ jobs:
       - name: " login to dockerhub"
         run: docker login --username ${{ secrets.DOCKER_USERNAME}} --password ${{ secrets.DOCKER_TOKEN }}
        
-////////////////////////////////////////////////////////
 
 build image and push it 
 
@@ -98,6 +95,5 @@ jobs:
       - name: " pushing to docker hub "
         run: docker push ${{ secrets.DOCKER_USERNAME}}/docker-image-creation
 
-/////////////////////////////////////////////////////////
 task
 
